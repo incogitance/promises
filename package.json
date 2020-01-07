@@ -11,7 +11,8 @@
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/hackreactor-labs/pomander/master/bin/install | bash",
     "test": "mocha test/index.js --bail",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "fixme": "eslint --fix ./"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
