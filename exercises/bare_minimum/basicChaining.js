@@ -16,33 +16,12 @@ var krustyKlown = require('./promiseConstructor.js');
 
 
 var fetchProfileAndWriteToFile = function(readFilePath, writeFilePath) {
-  // TODO
   return krustyKlown.pluckFirstLineFromFileAsync(readFilePath)
-  // .then((user) => {
-  //   if (!user) {
-  //     throw new Error('User does not exist');
-  //   } else {
-  //     return user;
-  //   }
-  // })
-    .then((user) => {
-      return homerSimpson.getGitHubProfileAsync(user);
-    })
-    .then((body) => {
-      console.log('body', body);
-      let data = JSON.stringify(body);
-      fs.writeFile(writeFilePath, data, (err) => {
-        if (err) {
-          throw err;
-        } else {
-          console.log('Success writing profile body to ', writeFilePath);
-        }
-      });
-    })
-    .catch((err) => {
-      console.log('Error with fetchProfileAndWriteToFile ', err);
+    .then(homerSimpson.getGitHubProfileAsync)
+    .then(function(profile) {
+      return fs.writeFileSync(writeFilePath, JSON.stringify(profile))
     });
-};
+  };
 
 // Export these functions so we can test them
 module.exports = {
